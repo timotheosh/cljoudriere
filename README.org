@@ -1,0 +1,113 @@
+* cljoudriere
+  :PROPERTIES:
+  :CUSTOM_ID: cljoudriere
+  :END:
+This is the cljoudriere project.
+
+** Development mode
+   :PROPERTIES:
+   :CUSTOM_ID: development-mode
+   :END:
+To start the Figwheel compiler, navigate to the project folder and run
+the following command in the terminal:
+
+#+begin_example
+  lein figwheel
+#+end_example
+
+Figwheel will automatically push cljs changes to the browser. The server
+will be available at [[http://localhost:3449]] once Figwheel starts up.
+
+Figwheel also starts =nREPL= using the value of the =:nrepl-port= in the
+=:figwheel= config found in =project.clj=. By default the port is set to
+=7002=.
+
+The figwheel server can have unexpected behaviors in some situations
+such as when using websockets. In this case it's recommended to run a
+standalone instance of a web server as follows:
+
+#+begin_example
+  lein do clean, run
+#+end_example
+
+The application will now be available at [[http://localhost:3000]].
+
+*** Optional development tools
+    :PROPERTIES:
+    :CUSTOM_ID: optional-development-tools
+    :END:
+Start the browser REPL:
+
+#+begin_example
+  $ lein repl
+#+end_example
+
+The Jetty server can be started by running:
+
+#+begin_src clojure
+  (start-server)
+#+end_src
+
+and stopped by running:
+
+#+begin_src clojure
+  (stop-server)
+#+end_src
+
+** Building for release
+   :PROPERTIES:
+   :CUSTOM_ID: building-for-release
+   :END:
+#+begin_example
+  lein do clean, uberjar
+#+end_example
+
+** Deploying to Heroku
+   :PROPERTIES:
+   :CUSTOM_ID: deploying-to-heroku
+   :END:
+Make sure you have [[http://git-scm.com/downloads][Git]] and
+[[https://toolbelt.heroku.com/][Heroku toolbelt]] installed, then simply
+follow the steps below.
+
+Optionally, test that your application runs locally with foreman by
+running.
+
+#+begin_example
+  foreman start
+#+end_example
+
+Now, you can initialize your git repo and commit your application.
+
+#+begin_example
+  git init
+  git add .
+  git commit -m "init"
+#+end_example
+
+create your app on Heroku
+
+#+begin_example
+  heroku create
+#+end_example
+
+optionally, create a database for the application
+
+#+begin_example
+  heroku addons:add heroku-postgresql
+#+end_example
+
+The connection settings can be found at your
+[[https://dashboard.heroku.com/apps/][Heroku dashboard]] under the
+add-ons for the app.
+
+deploy the application
+
+#+begin_example
+  git push heroku master
+#+end_example
+
+Your application should now be deployed to Heroku! For further
+instructions see the
+[[https://devcenter.heroku.com/articles/clojure][official
+documentation]].
